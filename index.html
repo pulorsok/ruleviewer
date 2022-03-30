@@ -129,15 +129,15 @@
         background-image: url('/css/searchicon.png'); /* Add a search icon to input */
         background-position: 10px 12px; /* Position the search icon */
         background-repeat: no-repeat; /* Do not repeat the icon image */
-        width: 90%; /* Full-width */
+        width: 100%; /* Full-width */
         font-size: 16px; /* Increase font-size */
         padding: 12px 20px 12px 40px;
         border:2px solid #aaa;
         border-radius:4px;
-        margin-left: 30px; 
-        margin-right: 12px;
-        margin-bottom: 35px; 
     }
+    .highlight {
+        background-color: yellow;
+    }   
 </style>
 
 <body>
@@ -147,72 +147,29 @@
     <main role="main" class="container">
         <div class="container">
             <div class="starter-template">
-         
                 <img class="logo" src="quark-logo.png">
-                <!-- <div class="filter-container">
-                    <input type="text" id="myInput" onkeyup="searchFilter()" placeholder="Search for rules..">
-                </div> -->
                 <div class="filter-container">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="group-title">
                                 <h4>Detection Rules' Key Words Searching</h4>
                             </div>
-                            <input type="text" id="myInput" onkeyup="searchFilter()" placeholder="Search for rules..">
-                        </div>
-                        <!-- <div class="col-sm-9">
-                            <div class="label-group">
-                                <label id="collection" class="label-container">COLLECTION
-                                    <input class="rule-label" type="checkbox" name="label" value="collection">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="control" class="label-container">CONTROL
-                                    <input class="rule-label" type="checkbox" name="label" value="control">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="camera" class="label-container">CAMERA
-                                    <input class="rule-label" type="checkbox" name="label" value="camera">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="sms" class="label-container">SMS
-                                    <input class="rule-label" type="checkbox" name="label" value="sms">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="file" class="label-container">FILE
-                                    <input class="rule-label" type="checkbox" name="label" value="file">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="location" class="label-container">LOCATION
-                                    <input class="rule-label" type="checkbox" name="label" value="location">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="network" class="label-container">NETWORK
-                                    <input class="rule-label" type="checkbox" name="label" value="network">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="reflection" class="label-container">REFLECTION
-                                    <input class="rule-label" type="checkbox" name="label" value="reflection">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="record" class="label-container">RECORD
-                                    <input class="rule-label" type="checkbox" name="label" value="record">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="wifi" class="label-container">WIFI
-                                    <input class="rule-label" type="checkbox" name="label" value="wifi">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="calllog" class="label-container">CALLLOG
-                                    <input class="rule-label" type="checkbox" name="label" value="calllog">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <p style="padding-left: 30px;padding-bottom: 20px;">
-                                    Input keyword
-                                </p>
-
-
+                            <div style="padding-left: 30px;padding-right: 30px;">
+                                <input type="text" id="myInput" onkeyup="searchFilter()" placeholder="Search for rules..">
                             </div>
-                        </div> -->
+                            <div class="group-title">
+                                <p style="font-weight: 600;">You can use symbols or keywords in your search to make your search results more precise.</p>
+                                <p style="font-size: 0.8rem;font-weight: 300;">
+                                    &emsp;&emsp;- &emsp;Use <span style="font-family:monospace; color:green">AND</span> to narrow your search. For example, <span style="font-family:monospace; color:green">sms AND json</span>.<br>
+                                    &emsp;&emsp;- &emsp;Use <span style="font-family:monospace; color:green">OR</span> to combine your search. For example, <span style="font-family:monospace; color:green">sms OR location</span>.<br>
+                                    &emsp;&emsp;- &emsp;Use "<span style="font-family:monospace; color:green">&ltjson key&gt:</span>" to search for specific rule data. For example, <span style="font-family:monospace; color:green">label:camera</span> or <span style="font-family:monospace; color:green">api1.method:takePicture</span>.<br>
+                                    &emsp;&emsp;- &emsp;Use 
+                                        <span style="font-family:monospace; color:green">AND</span>, 
+                                        <span style="font-family:monospace; color:green">OR</span>, 
+                                        "<span style="font-family:monospace; color:green">&ltjson key&gt:</span>" together. For example, <span style="font-family:monospace; color:green">api1.method:open AND api2.method:takePicture</span>.<br>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="rules-content">
@@ -377,7 +334,7 @@
                         // document.getElementById("rule" + rules[i].id).style.display = "none";
                         if (searchKeys.every(r => obj[keyword].toLowerCase().includes(r))){
                             // document.getElementById("rule" + rules[i].id).style.display = "block";
-                            displayRules.push("rule" + rules[i].id)   
+                            displayRules.push("rule" + rules[i].id)
                         }
                     }
                 }
@@ -466,6 +423,21 @@
             // callback();
         }
 
+        function highlightSearchText(ruleHTML, textList) {
+            var innerHTML = ruleHTML.innerHTML;
+            const text = "Find"
+
+            textList.forEach(element => {
+                var index = innerHTML.indexOf(text);
+                if (index >= 0) { 
+                    innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+                    ruleHTML.innerHTML = innerHTML;
+                } else {
+                    ruleHTML.innerHTML = innerHTML.replace("<span class='highlight'>", "").replace("</span>", "");
+                }
+            });
+        }
+
         function searchFilter() {
             text = "not a and b or a and b "
             // Declare variables
@@ -477,33 +449,7 @@
             ]
             input = document.getElementById('myInput');
             filter = input.value;
-            // console.log(filter)
-
-            // // Check operator
-            // operatorList.forEach(operator => {
-            //     if (filter.includes(operator)){
-                    
-            //     }
-            // });
-
-            // displayRules = []
-
-            // compare(filter)
-
-
-            // operatorRecursive(filter, function(){
-            //    console.log("done") 
-            //    for (i = 0; i < rules.length; i++) {
-                    
-            //         document.getElementById("rule" + rules[i].id).style.display = "none";
-            //     }
-            //    displayRules.forEach(element => {
-            //        document.getElementById(element).style.display = "block"; 
-            //    });
-            // });
-
             
-
             (async function(){
                 let final = []
                 let ruleList1
@@ -545,27 +491,6 @@
                     [text1, ...rest] = filter.split(" OR ")
                     text2 = rest[0]
                     ruleList1 = await operatorRecursive(text1)
-
-                    // if (text2.includes("AND")){
-                    //     text = filter.split(" AND ")
-                    //     text1 = text[0]
-                    //     text2 = text[1]
-                    //     list1 = await operatorRecursive(text1)
-                    //     list2 = await operatorRecursive(text2)
-
-                    //     ruleList1 = list1.filter(value => list2.includes(value));
-                        
-                    // }
-                    // if (text2.includes("OR")){
-                    //     text = filter.split(" OR ")
-                    //     text1 = text[0]
-                    //     text2 = text[1]
-                    //     list1 = await operatorRecursive(text1)
-                    //     list2 = await operatorRecursive(text2)
-
-                    //     ruleList1 = list1.concat(list2);
-                    // }
-
                     ruleList2 = await operatorRecursive(text2)
                     final = ruleList1.concat(ruleList2)
                 }
@@ -581,49 +506,6 @@
             })();
 
             console.log("done") 
-            // for (i = 0; i < rules.length; i++) {
-                
-            //     document.getElementById("rule" + rules[i].id).style.display = "none";
-            // }
-            // rulelist.forEach(element => {
-            //     document.getElementById(element).style.display = "block"; 
-            // });
-
-
-            // ul = document.getElementById("myUL");
-            // li = ul.getElementsByTagName('li');
-
-            // Loop through all list items, and hide those who don't match the search query
-            // for (i = 0; i < li.length; i++) {
-            //     a = li[i].getElementsByTagName("a")[0];
-            //     txtValue = a.textContent || a.innerText;
-            //     if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            //     li[i].style.display = "";
-            //     } else {
-            //     li[i].style.display = "none";
-            //     }
-            // }
-
-            
-            // var labels = []
-            // $("input:checkbox[name=label]:checked").each(function () {
-            //     labels.push($(this).val());
-            // });
-
-            // for (i = 0; i < rules.length; i++) {
-
-            //     var obj = JSON.parse(rules[i].innerText)
-            //     document.getElementById("rule" + rules[i].id).style.display = "none";
-            //     // console.log(obj)
-            //     // if (labels.every(r => obj.label.includes(r))) {
-            //         // document.getElementById("rule" + rules[i].id).style.display = "block";
-            //     // }
-
-            //     if (rules[i].innerText.toLowerCase().includes(filter)){
-            //         document.getElementById("rule" + rules[i].id).style.display = "block";   
-            //     }
-
-            // }
         }
     </script>
 
