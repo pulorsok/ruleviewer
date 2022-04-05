@@ -407,7 +407,7 @@
                 text1 = filter.split("AND")
 
                 operatorRecursive(filter, function(){
-                    console.log("done") 
+                    // console.log("done") 
                     for (i = 0; i < rules.length; i++) {
                             
                             document.getElementById("rule" + rules[i].id).style.display = "none";
@@ -621,13 +621,19 @@
                 var temp = null
                 for (let index = 0; index < new_splited.length; index++) {
                     const element = new_splited[index];
-                    temp = await operatorRecursive(element)
+                    if (index == 0){
+                        temp = await operatorRecursive(element)
+                    }
                     if (element == "AND") {
+                        console.log("AND")
+                        console.log(new_splited[index+1])
                         list2 = await operatorRecursive(new_splited[index+1])
                         temp = temp.filter(value => list2.includes(value));
                     }
                     
                     if (element == "OR") {
+                        console.log("OR")
+                        console.log(new_splited[index+1])
                         list2 = await operatorRecursive(new_splited[index+1])
                         temp = temp.concat(list2);
                     }
@@ -635,70 +641,10 @@
 
                 final = temp
 
-                // if (filter.includes("AND")){
-                //     [text1, ...rest] = filter.split(" AND ")
-                //     text2 = rest[0]
-                //     // text2 = rest.join(' AND ');
-                //     console.log(text1)
-                //     console.log(text2)
-                //     ruleList1 = await operatorRecursive(text1)
-
-                //     if (rest.includes("AND")){
-                //         // text = filter.split(" AND ")
-                //         text1 = rest[0]
-                //         text2 = rest[1]
-                //         list1 = await operatorRecursive(text1)
-                //         list2 = await operatorRecursive(text2)
-                //         ruleList1 = list1.filter(value => list2.includes(value));
-                        
-                //     }
-                //     if (text2.includes("OR")){
-                //         text = filter.split(" OR ")
-                //         text1 = text[0]
-                //         text2 = text[1]
-                //         list1 = await operatorRecursive(text1)
-                //         list2 = await operatorRecursive(text2)
-
-                //         ruleList1 = list1.concat(list2);
-                //     }
-                    
-                //     ruleList2 = await operatorRecursive(text2)
-                //     final = ruleList1.filter(value => ruleList2.includes(value));
-                // }
-                // if (filter.includes("OR")){
-                //     [text1, ...rest] = filter.split(" OR ")
-                //     text2 = rest[0]
-                //     ruleList1 = await operatorRecursive(text1)
-
-                //     if (text2.includes("AND")){
-                //         text = filter.split(" AND ")
-                //         text1 = text[0]
-                //         text2 = text[1]
-                //         list1 = await operatorRecursive(text1)
-                //         list2 = await operatorRecursive(text2)
-
-                //         ruleList1 = list1.filter(value => list2.includes(value));
-                        
-                //     }
-                //     if (text2.includes("OR")){
-                //         text = filter.split(" OR ")
-                //         text1 = text[0]
-                //         text2 = text[1]
-                //         list1 = await operatorRecursive(text1)
-                //         list2 = await operatorRecursive(text2)
-
-                //         ruleList1 = list1.concat(list2);
-                //     }
-
-                //     ruleList2 = await operatorRecursive(text2)
-                //     final = ruleList1.concat(ruleList2)
-                // }
-
-                // let rulelist = await operatorRecursive(filter)
                 for (i = 0; i < rules.length; i++) {
                     document.getElementById("rule" + rules[i].id).style.display = "none";
                 }
-                console.log(final)
+                // console.log(final)
                 final.forEach(element => {
                     document.getElementById(element).style.display = "block"; 
                 });
