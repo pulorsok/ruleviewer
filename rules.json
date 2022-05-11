@@ -491,6 +491,30 @@
         {
             "score": 1, 
             "permission": [], 
+            "number": "00202", 
+            "label": [
+                "control"
+            ], 
+            "api": [
+                {
+                    "descriptor": "(Ljava/lang/String;)V", 
+                    "match_keywords": [
+                        "CALL"
+                    ], 
+                    "class": "Landroid/content/Intent;", 
+                    "method": "<init>"
+                }, 
+                {
+                    "descriptor": "(Landroid/net/Uri;)Landroid/content/Intent;", 
+                    "class": "Landroid/content/Intent;", 
+                    "method": "setData"
+                }
+            ], 
+            "crime": "Make a phone call"
+        }, 
+        {
+            "score": 1, 
+            "permission": [], 
             "number": "00081", 
             "label": [
                 "reflection"
@@ -618,6 +642,30 @@
                 }
             ], 
             "crime": "Save recorded audio/video to a file"
+        }, 
+        {
+            "score": 1, 
+            "permission": [], 
+            "number": "00203", 
+            "label": [
+                "control"
+            ], 
+            "api": [
+                {
+                    "descriptor": "(Ljava/lang/String;)Landroid/net/Uri;", 
+                    "class": "Landroid/net/Uri;", 
+                    "method": "parse"
+                }, 
+                {
+                    "descriptor": "(Landroid/net/Uri;)Landroid/content/Intent;", 
+                    "match_keywords": [
+                        "tel:"
+                    ], 
+                    "class": "Landroid/content/Intent;", 
+                    "method": "setData"
+                }
+            ], 
+            "crime": "Put a phone number into an intent"
         }, 
         {
             "score": 1, 
@@ -1347,6 +1395,27 @@
                 }
             ], 
             "crime": "Retrieve data from broadcast"
+        }, 
+        {
+            "score": 1, 
+            "permission": [], 
+            "number": "00204", 
+            "label": [
+                "collection"
+            ], 
+            "api": [
+                {
+                    "descriptor": "(I)Landroid/net/Uri;", 
+                    "class": "Landroid/media/RingtoneManager;", 
+                    "method": "getDefaultUri"
+                }, 
+                {
+                    "descriptor": "(Landroid/content/Context; Landroid/net/Uri;)Landroid/media/Ringtone;", 
+                    "class": "Landroid/media/RingtoneManager;", 
+                    "method": "getRingtone"
+                }
+            ], 
+            "crime": "Get the default ringtone"
         }, 
         {
             "score": 1, 
@@ -3590,6 +3659,31 @@
         {
             "score": 1, 
             "permission": [], 
+            "number": "00200", 
+            "label": [
+                "collection", 
+                "contact"
+            ], 
+            "api": [
+                {
+                    "descriptor": "(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;", 
+                    "match_keywords": [
+                        "Phone"
+                    ], 
+                    "class": "Landroid/content/ContentResolver;", 
+                    "method": "query"
+                }, 
+                {
+                    "descriptor": "(Ljava/lang/String;)I", 
+                    "class": "Landroid/database/Cursor;", 
+                    "method": "getColumnIndex"
+                }
+            ], 
+            "crime": "Query data from the contact list"
+        }, 
+        {
+            "score": 1, 
+            "permission": [], 
             "number": "00095", 
             "label": [
                 "collection", 
@@ -4050,6 +4144,31 @@
                 }
             ], 
             "crime": "Connect to a URL and read data from it"
+        }, 
+        {
+            "score": 1, 
+            "permission": [], 
+            "number": "00201", 
+            "label": [
+                "collection", 
+                "calllog"
+            ], 
+            "api": [
+                {
+                    "descriptor": "(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;", 
+                    "match_keywords": [
+                        "call_log"
+                    ], 
+                    "class": "Landroid/content/ContentResolver;", 
+                    "method": "query"
+                }, 
+                {
+                    "descriptor": "(Ljava/lang/String;)I", 
+                    "class": "Landroid/database/Cursor;", 
+                    "method": "getColumnIndex"
+                }
+            ], 
+            "crime": "Query data from the call log"
         }, 
         {
             "score": 1, 
