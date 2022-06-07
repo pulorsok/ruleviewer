@@ -20,7 +20,7 @@
             "label": [
                 "accessibility service"
             ]
-        }
+        },
         {
             "number": "00206",
             "crime": "Check if the text of the view contains the given string",
@@ -41,7 +41,7 @@
             "label": [
                 "accessibility service"
             ]
-        }
+        },
         {
             "number": "00205",
             "crime": "Simulate a touch gesture on the device screen",
@@ -63,7 +63,7 @@
                 "accessibility service",
                 "control"
             ]
-        }
+        },
         {
             "score": 1, 
             "permission": [], 
